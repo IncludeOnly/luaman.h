@@ -51,46 +51,46 @@ LMAPI const char* LMGetTableFieldString(LuaMan* lm, const char* table, const cha
 #endif // LUAMAN_H
 
 #ifdef LUAMAN_IMPLEMENTATION
-LMAPI void LMInit(LuaManager* lm)
+LMAPI void LMInit(LuaMan* lm)
 {
     lm->state = luaL_newstate();
     luaL_openlibs(lm->state);
 }
 
-LMAPI void LMClose(LuaManager* lm)
+LMAPI void LMClose(LuaMan* lm)
 {
     lua_close(lm->state);
 }
 
-LMAPI void LMPushNumber(LuaManager* lm, double number, const char* name)
+LMAPI void LMPushNumber(LuaMan* lm, double number, const char* name)
 {
     lua_pushnumber(lm->state, number);
     if(name != NULL)
         lua_setglobal(lm->state, name);
 }
 
-LMAPI void LMPushString(LuaManager* lm, const char* string, const char* name)
+LMAPI void LMPushString(LuaMan* lm, const char* string, const char* name)
 {
     lua_pushstring(lm->state, string);
     if(name != NULL)
         lua_setglobal(lm->state, name);
 }
 
-LMAPI void LMPushFunction(LuaManager* lm, lua_CFunction fun, const char* name)
+LMAPI void LMPushFunction(LuaMan* lm, lua_CFunction fun, const char* name)
 {
     assert(name);
     lua_pushcfunction((lm)->state, fun);
     lua_setglobal((lm)->state, name); 
 }
 
-LMAPI double LMGetNumber(LuaManager* lm, const char* name)
+LMAPI double LMGetNumber(LuaMan* lm, const char* name)
 {
     if(name != NULL)
         lua_getglobal(lm->state, name);
     return lua_tonumber(lm->state, -1);
 }
 
-LMAPI const char* LMGetString(LuaManager* lm, const char* name)
+LMAPI const char* LMGetString(LuaMan* lm, const char* name)
 {
     if(name != NULL)
         lua_getglobal(lm->state, name);
@@ -98,7 +98,7 @@ LMAPI const char* LMGetString(LuaManager* lm, const char* name)
 }
 
 
-LMAPI double LMGetTableFieldNumber(LuaManager* lm, const char* table, const char* field)
+LMAPI double LMGetTableFieldNumber(LuaMan* lm, const char* table, const char* field)
 {
     assert(table);
     assert(field);
@@ -112,7 +112,7 @@ LMAPI double LMGetTableFieldNumber(LuaManager* lm, const char* table, const char
     return 2147483647; // INT_MAX
 }
     
-LMAPI const char* LMGetTableFieldString(LuaManager* lm, const char* table, const char* field)
+LMAPI const char* LMGetTableFieldString(LuaMan* lm, const char* table, const char* field)
 {
     assert(table);
     assert(field);
